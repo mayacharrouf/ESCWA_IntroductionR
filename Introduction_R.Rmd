@@ -594,7 +594,7 @@ employee_data %>%
 
 Graphs can always be adjusted to feed the purpose of the data. The next graph groups the employee data by both **Department** and **Performance** levels, then calculates the average salary for each group. It produces a comparative bar chart using *ggplot2*, where average salaries are displayed side-by-side for each performance category within departments, with customized labels, colors, and formatting for enhanced readability.
 
-The role of the position called "position_dodge()" allows a better interpretation of the graph, showing that governorate D and F tend to have older female population, while C and E have older male population. In a similar way, the gap in governorates B and E is higher for men, but the difference is not as dramatic. After specifying the type of the graph, an essential step would be to format it so that it looks appealing. To read the graph, *clear labels* need to be assigned. For this, `ggplot2` provides the function `labs()` which allows a great control of these parameters.
+The role of the position called "position_dodge()" allows a better interpretation of the graph. Moreover, to read the graph, *clear labels* need to be assigned. For this, `ggplot2` provides the function `labs()` which allows a great control of these parameters.
 
 ```{r  message = FALSE, warning= FALSE, eval=TRUE}
 employee_data %>%
@@ -622,7 +622,7 @@ employee_data %>%
 
 ```
 
-When creating graphs, flipping the coordinates might makes labels easier to read. It's also helpful to remove internal grid lines and use, for example, simple, consistent color gradients throughout the report.
+When creating graphs, flipping the coordinates might make labels easier to read. It's also helpful to remove internal grid lines and use, for example, simple, consistent color gradients throughout the report.
 
 Two commands were added to the command line: 1. *coord_flip()*: changes the axis 2. *Scale_fill_brewer()*: changes the color palette. The palette used in this example is "Paired" but others can be found, please go to <https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html>
 
@@ -653,7 +653,7 @@ While many other formatting criteria will be added to the illustration codes see
 
 ## Graph types
 
-Choosing the type of graph is and art and, depending on the message that we want to convet, it is possible to prefer one graph over others. For example, consider a researcher that is interested in learning not only the mean values, but the whole age distribution, for example by performance level
+Choosing the type of graph is an art and, depending on the message that we want to convey, it is possible to prefer one graph over others. For example, consider a researcher that is interested in learning not only the mean values, but the whole age distribution, for example by performance level
 
 ```{r  message = FALSE, warning= FALSE, eval=TRUE}
 employee_data %>%
@@ -667,9 +667,9 @@ employee_data %>%
   theme_classic()
 ```
 
-Three changes are spotted here: 1. The type of the graph **violin plot** is specified instead of bar plot. 2. In contrast to the bar plot, the violin plot can be done directly over the full data set and does not require any pre-processing of it. 3. The violin plot helps to notice that older employees have better performance and that younger lower performance, while medium performers are found across all ages
+Three changes are spotted here: 1. The type of the graph **violin plot** is specified instead of bar plot. 2. In contrast to the bar plot, the violin plot can be done directly over the full data set and does not require any pre-processing of it. 3. The violin plot helps to notice that older employees have better performance, younger employees have lower performance, while medium performers are found across all ages.
 
-Once the user understands this hypothesis, the type of graph can be chosen to support the claim further. This scatter plot provides a visual analysis of employee turnover risk by mapping tenure against salary, with additional dimensions of age and employment status. Each point represents an employee, where the x-axis shows years of service and the y-axis displays annual salary. The size of each point reflects the employee's age, while the color indicates their turnover risk level—ranging from low risk to terminated. This visualization helps identify patterns, such as whether long-tenured, low-performing employees are at higher risk, or if certain age groups are more prone to termination or retention challenges.
+Once the user understands this hypothesis, the type of graph can be chosen to support the claim further. The following scatter plot provides a visual analysis of employee turnover risk by mapping **Tenure** against **Salary**, with additional dimensions of **Age** and **Employment status**. Each point represents an employee, where the x-axis shows years of service and the y-axis displays annual salary. The size of each point reflects the employee's age, while the color indicates their turnover risk level—ranging from low risk to terminated. This visualization helps identify patterns, such as whether long-tenured, low-performing employees are at higher risk, or if certain age groups are more prone to termination or retention challenges.
 
 ```{r  message = FALSE, warning= FALSE, eval=TRUE}
 
