@@ -12,7 +12,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Chapter 1: Introduction to R TESTESTESTSETE
+# Chapter 1: Introduction to R TESTESTESTSETE 
+###HI MAYA1!!!!
 
 This chapter is designed to introduce beginners to R, ensuring that trainees with no prior exposure to the software can grasp its basic functionalities. It begins with an overview of R, instructions for installing the software, and a description of the RStudio interface. Finally, it provides guidance on creating basic code.
 
