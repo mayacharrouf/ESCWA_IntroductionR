@@ -539,11 +539,11 @@ Easy interpreted graphs make data interpretation easier. That being said, the ty
 
 ## Basic Graphs
 
-The first graph example is a simple **bar plot**./
-In order to create a graph, three steps are needed:/
-  1. A pipeline that links the data that will be used for the plot with the ggplot() function./
-  2. X and y axes specified in the function called *aes()*./
-  3. The choice of the graph type, for example here *geom_bar()*./
+The first graph example is a simple **bar plot**.  
+In order to create a graph, three steps are needed:  
+  1. A pipeline that links the data that will be used for the plot with the ggplot() function.  
+  2. X and y axes specified in the function called *aes()*.  
+  3. The choice of the graph type, for example here *geom_bar()*.  
 
 For a more advanced graph, the task is to group the employee dataset uploaded by the **Department** variable and calculate the **Average Salary** for each department. It then generates a bar chart using *ggplot2* to visualize the average salaries, with customized labels, formatting, and styling for presentation. Any characteristic should be added to the *aes()* command.
 
@@ -625,7 +625,10 @@ employee_data %>%
 
 When creating graphs, flipping the coordinates might make labels easier to read. It's also helpful to remove internal grid lines and use, for example, simple, consistent color gradients throughout the report.
 
-Two commands were added to the command line: 1. *coord_flip()*: changes the axis 2. *Scale_fill_brewer()*: changes the color palette. The palette used in this example is "Paired" but others can be found, please go to <https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html>
+Two commands were added to the command line:  
+1. *coord_flip()*: changes the axis  
+2. *Scale_fill_brewer()*: changes the color palette.  
+The palette used in this example is "Paired" but others can be found, please go to <https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html>
 
 ```{r  message = FALSE, warning= FALSE, eval=TRUE}
 employee_data %>%
@@ -654,7 +657,7 @@ While many other formatting criteria will be added to the illustration codes see
 
 ## Graph types
 
-Choosing the type of graph is an art and, depending on the message that we want to convey, it is possible to prefer one graph over others. For example, consider a researcher that is interested in learning not only the mean values, but the whole age distribution, for example by performance level
+Choosing the type of graph is an art and, depending on the message that we want to convey, it is possible to prefer one graph over others. For example, consider a researcher that is interested in learning not only the mean values, but the whole age distribution, for example by performance level.
 
 ```{r  message = FALSE, warning= FALSE, eval=TRUE}
 employee_data %>%
@@ -668,16 +671,20 @@ employee_data %>%
   theme_classic()
 ```
 
-Three changes are spotted here: 1. The type of the graph **violin plot** is specified instead of bar plot. 2. In contrast to the bar plot, the violin plot can be done directly over the full data set and does not require any pre-processing of it. 3. The violin plot helps to notice that older employees have better performance, younger employees have lower performance, while medium performers are found across all ages.
+Three changes are spotted here:  
+1. The type of the graph **violin plot** is specified instead of bar plot.  
+2. In contrast to the bar plot, the violin plot can be done directly over the full data set and does not require any pre-processing of it.  
+3. The violin plot helps to notice that older employees have better performance, younger employees have lower performance, while medium performers are found across all ages.
 
-Once the user understands this hypothesis, the type of graph can be chosen to support the claim further. The following scatter plot provides a visual analysis of employee turnover risk by mapping **Tenure** against **Salary**, with additional dimensions of **Age** and **sEmployment status**. Each point represents an employee, where the x-axis shows years of service and the y-axis displays annual salary. The size of each point reflects the employee's age, while the color indicates their turnover risk level—ranging from low risk to terminated. This visualization helps identify patterns, such as whether long-tenured, low-performing employees are at higher risk, or if certain age groups are more prone to termination or retention challenges.
+Once the user understands this hypothesis, the type of graph can be chosen to support the claim further. The following scatter plot provides a visual analysis of employee turnover risk by mapping **Tenure** against **Salary**, with additional dimensions of **Age** and **Employment status**. Each point represents an employee, where the x-axis shows years of service and the y-axis displays annual salary.  
+The size of each point reflects the employee's age, while the color indicates their turnover risk level—ranging from low risk to terminated. This visualization helps identify patterns, such as whether long-tenured, low-performing employees are at higher risk, or if certain age groups are more prone to termination or retention challenges.
 
 ```{r  message = FALSE, warning= FALSE, eval=TRUE}
 
 employee_data %>%
   # Create a new column 'Turnover_Risk' based on employee status, tenure, and performance
   mutate(Turnover_Risk = ifelse(!Active_Status, "Terminated",  # If not active, mark as Terminated
-                               ifelse(Tenure > 5 & Performance == "Low", "High Risk",  # Long tenure + low performance = high risk
+                   ifelse(Tenure > 5 & Performance == "Low", "High Risk",  # Long tenure + low performance = high risk
                                       ifelse(Tenure > 3 & Performance == "Medium", "Medium Risk", "Low Risk")))) %>%
   
   # Begin plotting: x-axis is Tenure, y-axis is Salary, color by Turnover_Risk, size by Age
@@ -699,25 +706,22 @@ employee_data %>%
   # Format y-axis labels as currency
   scale_y_continuous(labels = dollar_format())
 
-
-
 ```
 
 During the previous exercises, the user has been exposed to different types of graphs, where the common patterns among the codes have been highlighted. Currently there are multiple portals with amazing ideas on how to display information. One recommendation for curious minds is the official site of the [R gallery](https://r-graph-gallery.com/) where access to multiple designs is found using these same code patterns.
 
 # Chapter 4: Automated report
 
-Excel is widely used for data handling, but automating tasks within it can be time-consuming. For instance, adding or removing titles from hundreds of graphs manually wastes valuable time. This chapter and the next show how to automate such tasks by integrating Excel with R, requiring only minor code changes.
+Excel is widely used for data handling, but automating tasks within it can be time-consuming. For instance, adding or removing titles from hundreds of graphs manually wastes valuable time. This chapter and the next show how to automate such tasks by integrating *Excel* with *R*, requiring only minor code changes.
 
-Using the `openxlsx` package, R can create and edit Excel files. The exercise builds on above graphs from Chapter 3, saving it as a PNG and embedding it in an Excel sheet alongside a microdata table. Key functions like `createWorkbook()`, `insertImage()`, and `writeDataTable()` streamline the process. The result: a ready-to-use Excel report with both visual and tabular data.
+Using the `openxlsx` package, R can create and edit Excel files. The exercise builds on above graphs from Chapter 3, saving it as a PNG and embedding it in an Excel sheet alongside a micro data table. Key functions like `createWorkbook()`, `insertImage()`, and `writeDataTable()` streamline the process. The result: a ready-to-use Excel report with both visual and tabular data.
 
 ```{r  message = FALSE, warning= FALSE, eval=TRUE}
-
 
 library(openxlsx) # New library for Excel file manipulation
 
 # Create a new Excel workbook
-wb = openxlsx::createWorkbook(creator = 'ESCWA')  # The operator "::" calls a specific function from the `openxlsx` package.
+wb = openxlsx::createWorkbook(creator = 'ESCWA')  # The operator "::" calls a specific function from the `openxlsx` package
 
 # Add a new worksheet to the workbook
 newSheet = addWorksheet(wb, sheetName = "Age_Performance Level") 
@@ -763,6 +767,7 @@ The file corresponding to the Excel report once accessed looked like
 
 ![](images/clipboard-2475495323.png)
 
+  
 To highlight:
 
 -   Notice that the starting cells of the graph and table matches those that are assigned by the code.
