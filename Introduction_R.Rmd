@@ -374,6 +374,8 @@ To understand better the dataset, you need to work more on its content and for t
 
 The library `dplyr` is very useful for data management as it allows to organize complex processes into simple segmented instructions. However, to do it in a proper way, it is important to know the variables in the dataset and for that purpose the best starting point is by knowing the variables inside. For applied excercised you can run SPP RAF code and routine.
 
+Note that, in case the Excel sheet of the data uploaded has two separate sheets, for example one for "Individuals" and another for "Household", the function *merge* helps in combining the two sheets in one output using for example "Household ID".
+
 For didactic purposes we will create a employee dataset considering we cannot upload locally the information.
 
 ```{r  message = FALSE, warning= FALSE, eval=TRUE}
@@ -536,13 +538,16 @@ Easy interpreted graphs make data interpretation easier. That being said, the ty
 
 ## Basic Graphs
 
-The dataset has two separate sheets as previously mentioned. One on individual variables, and the other on household variables. The exercise will be to display the average age of individuals based on their governorate. The *merge* function helps in combining the two sheets in one output (here named Merged_Data) using Household ID. The first example will be a simple **bar plot**.
+The first graph example is a simple **bar plot**./
+In order to create a graph, three steps are needed:/
+  1. A pipeline that links the data that will be used for the plot with the ggplot() function./
+  2. X and y axes specified in the function called *aes()*./
+  3. The choice of the graph type, for example here *geom_bar()*./
 
-In order to create a graph, three steps are needed: 1. A pipeline that links the data that will be used for the plot with the ggplot() function. 2. X and y axes specified in the function called *aes()*. 3. The choice of the graph type, for example here *geom_bar()*.
+For a more advanced graph, the task is to group the employee dataset uploaded by the **Department** variable and calculate the **Average Salary** for each department. It then generates a bar chart using *ggplot2* to visualize the average salaries, with customized labels, formatting, and styling for presentation. Any characteristic should be added to the *aes()* command.
 
 Note that the "+" sign in the end of the line works as a pipeline to connect the command with the next instruction.
 
-For a more advanced graph, the task is to create a bar plot that displays the average age of individuals based on their governorate and gender. The additional new parameter in *aes()* is the difference between the previous bar plot and the new one. Therefore, any characteristic should be added to the *aes()* command.
 
 ```{r  message = FALSE, warning= FALSE, eval=TRUE}
 library(readxl)
@@ -587,7 +592,7 @@ employee_data %>%
 
 ```
 
-Graphs can always be adjusted to feed the purpose of the data. The above graph can be illustrated in a better way instead of having males and females piled up making the graph confusing and uninformative.
+Graphs can always be adjusted to feed the purpose of the data. The next graph groups the employee data by both **Department** and **Performance** levels, then calculates the average salary for each group. It produces a comparative bar chart using *ggplot2*, where average salaries are displayed side-by-side for each performance category within departments, with customized labels, colors, and formatting for enhanced readability.
 
 The role of the position called "position_dodge()" allows a better interpretation of the graph, showing that governorate D and F tend to have older female population, while C and E have older male population. In a similar way, the gap in governorates B and E is higher for men, but the difference is not as dramatic. After specifying the type of the graph, an essential step would be to format it so that it looks appealing. To read the graph, *clear labels* need to be assigned. For this, `ggplot2` provides the function `labs()` which allows a great control of these parameters.
 
